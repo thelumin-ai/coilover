@@ -3,19 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI Assistant</title>
+  <title>Retell AI Demo - Text & WebRTC Voice</title>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <main class="shell">
-    <section class="card">
+    <nav class="nav-tabs">
+      <button id="tabChat" class="tab-btn active">💬 Text Chat</button>
+      <button id="tabVoice" class="tab-btn">🎙️ WebRTC Voice Call</button>
+    </nav>
+
+    <!-- Text Chat Section -->
+    <section id="chatSection" class="card tab-content active">
       <header>
         <div class="avatar">AI</div>
         <div>
-          <h1>AI Assistant</h1>
-          <p><span></span> Online</p>
+          <h1>AI Text Assistant</h1>
+          <p><span class="status-dot online"></span> Online</p>
         </div>
-        <button id="newChat" aria-label="New chat">↻</button>
+        <button id="newChat" title="New chat session" aria-label="New chat">↻</button>
       </header>
 
       <div id="messages" class="messages"></div>
@@ -30,7 +39,45 @@
       </form>
       <small>Powered by Retell AI</small>
     </section>
+
+    <!-- WebRTC Voice Section -->
+    <section id="voiceSection" class="card tab-content hidden">
+      <header>
+        <div class="avatar voice-avatar">🎙️</div>
+        <div>
+          <h1>WebRTC Voice Call</h1>
+          <p><span id="voiceStatusDot" class="status-dot offline"></span> <span id="voiceStatusText">Disconnected</span></p>
+        </div>
+      </header>
+
+      <div class="voice-body">
+        <div class="visualizer-container">
+          <div id="voiceOrb" class="voice-orb">
+            <div class="pulse-ring r1"></div>
+            <div class="pulse-ring r2"></div>
+            <div class="pulse-ring r3"></div>
+            <div class="orb-icon">🎙️</div>
+          </div>
+          <p id="callStateLabel" class="call-state-label">Ready to connect</p>
+        </div>
+
+        <div class="voice-controls">
+          <button id="startCall" class="btn-voice start">📞 Start Voice Call</button>
+          <button id="endCall" class="btn-voice end hidden">🚫 End Call</button>
+          <button id="muteMic" class="btn-voice mute hidden">🎤 Mute Mic</button>
+        </div>
+
+        <div class="voice-log-container">
+          <div class="voice-log-header">
+            <span>Call Status & Event Log</span>
+            <button id="clearVoiceLog" class="btn-clear">Clear</button>
+          </div>
+          <div id="voiceLog" class="voice-log"></div>
+        </div>
+      </div>
+      <small>WebRTC Voice powered by Retell AI</small>
+    </section>
   </main>
-  <script src="/app.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>

@@ -61,4 +61,19 @@ app.post("/api/chat/message", async (req, res) => {
   }
 });
 
+app.post("/api/voice/session", async (req, res) => {
+  try {
+    const data = await retell("/v2/create-web-call", {
+      agent_id: AGENT_ID,
+      metadata: req.body?.metadata || {},
+      retell_llm_dynamic_variables: req.body?.retell_llm_dynamic_variables || {}
+    });
+    res.json(data);
+  } catch (e) {
+    console.error("create-web-call:", e.details || e);
+    res.status(e.status || 500).json({ error: e.message, details: e.details });
+  }
+});
+
 export default app;
+
