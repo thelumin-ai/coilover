@@ -7,7 +7,8 @@ const app = express();
 app.use(express.json());
 
 const API_KEY = process.env.RETELL_API_KEY;
-const AGENT_ID = process.env.RETELL_AGENT_ID;
+const CHAT_AGENT_ID = process.env.RETELL_CHAT_AGENT_ID || process.env.RETELL_AGENT_ID;
+const VOICE_AGENT_ID = process.env.RETELL_VOICE_AGENT_ID || process.env.RETELL_AGENT_ID;
 
 async function retell(pathname, body) {
   const r = await fetch(`https://api.retellai.com${pathname}`, {
@@ -31,7 +32,7 @@ async function retell(pathname, body) {
 app.post("/api/chat/session", async (req, res) => {
   try {
     const data = await retell("/create-chat", {
-      agent_id: AGENT_ID,
+      agent_id: CHAT_AGENT_ID,
       agent_version: "latest_published",
       metadata: req.body?.metadata || {},
       retell_llm_dynamic_variables: req.body?.retell_llm_dynamic_variables || {}
@@ -64,7 +65,7 @@ app.post("/api/chat/message", async (req, res) => {
 app.post("/api/voice/session", async (req, res) => {
   try {
     const data = await retell("/v2/create-web-call", {
-      agent_id: AGENT_ID,
+      agent_id: VOICE_AGENT_ID,
       metadata: req.body?.metadata || {},
       retell_llm_dynamic_variables: req.body?.retell_llm_dynamic_variables || {}
     });
@@ -74,6 +75,7 @@ app.post("/api/voice/session", async (req, res) => {
     res.status(e.status || 500).json({ error: e.message, details: e.details });
   }
 });
+
 
 export default app;
 
