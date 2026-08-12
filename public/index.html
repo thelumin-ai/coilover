@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Assistant</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="card">
+      <header>
+        <div class="avatar">AI</div>
+        <div>
+          <h1>AI Assistant</h1>
+          <p><span></span> Online</p>
+        </div>
+        <button id="newChat" aria-label="New chat">↻</button>
+      </header>
+
+      <div id="messages" class="messages"></div>
+
+      <div id="typing" class="typing hidden">
+        <i></i><i></i><i></i> AI is typing…
+      </div>
+
+      <form id="form">
+        <input id="input" placeholder="Type your message…" autocomplete="off">
+        <button id="send" type="submit">Send</button>
+      </form>
+      <small>Powered by Retell AI</small>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
